@@ -1,0 +1,22 @@
+[package]
+name = "cmdrvl-core"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+description = "Zero-I/O core primitives shared by CMD+RVL tools: RFC 8785 canonical JSON, prefixed hashes, lock.v0 verification, refusal types and zero-retention redaction markers"
+publish = false
+
+# Exactly these five dependencies. Ranges, not exact pins, so consumers that pin exactly
+# (airlock: serde =1.0.225, serde_json =1.0.143) can still use this crate; Cargo.lock pins what
+# this repository builds and tests with.
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+blake3 = "1.8"
+sha2 = "0.10"
+hmac = "0.12"
+
+[features]
+default = ["float-roundtrip"]
+# serde_json's default float parser can be 1 ULP off; see the jcs module docs.
+float-roundtrip = ["serde_json/float_roundtrip"]
