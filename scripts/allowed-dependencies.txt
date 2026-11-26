@@ -1,0 +1,40 @@
+# Every package allowed in `cargo tree -e normal --target all --all-features`, by name.
+# The five approved dependencies, this crate, and what they pull in on any target.
+# Adding a line here is adding a dependency: it needs approval (AGENTS.md).
+
+# this crate
+cmdrvl-core
+
+# the five approved direct dependencies
+blake3
+hmac
+serde
+serde_json
+sha2
+
+# blake3
+arrayref
+arrayvec
+cfg-if
+constant_time_eq
+cpufeatures
+libc
+
+# sha2 and hmac (RustCrypto)
+block-buffer
+crypto-common
+digest
+generic-array
+subtle
+typenum
+
+# serde and serde_json
+itoa
+memchr
+proc-macro2
+quote
+serde_core
+serde_derive
+syn
+unicode-ident
+zmij
