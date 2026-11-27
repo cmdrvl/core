@@ -11,7 +11,7 @@ forbids `unsafe`, and builds for `wasm32-unknown-unknown`.
 | `jcs` | RFC 8785 canonical JSON (ported from airlock). Integers beyond ±2^53 are refused. |
 | `sorted_compact` | The sorted compact JSON that `lock` and `pack` hash today. **Not RFC 8785.** |
 | `hash` | `blake3:` / `sha256:` prefixed hashes; strict `parse_prefixed`. |
-| `lockfile` | `lock.v0` member verification (spine-rules semantics) and the `lock_hash` self-hash. |
+| `lockfile` | `lock.v0` member verification, never looser than the released `shape`, `rvl`, `benchmark` or `verify` rules (see the module docs: some inputs a tool accepts are refused), and the `lock_hash` self-hash. Check several locks together with `verify_member_in_locks`. |
 | `refusal` | Refusal envelope and the family exit-code dictionary. |
 | `contract` | `ContractHash`, e.g. `blake3(JCS(value))`. No tool uses this type yet. |
 | `redact` | Zero-retention markers: ordinal refs by default, keyed HMAC-SHA256 on request. |

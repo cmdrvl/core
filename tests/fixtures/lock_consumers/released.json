@@ -1,0 +1,871 @@
+{
+ "platform": "macOS arm64",
+ "released": {
+  "shape": "shape 0.10.1",
+  "rvl": "rvl 0.9.2",
+  "benchmark": "benchmark 0.4.0",
+  "verify": "verify 0.7.6"
+ },
+ "cases": [
+  {
+   "name": "bead: old.csv + d/old.csv, input ./old.csv",
+   "input": "./old.csv",
+   "locks": [
+    [
+     [
+      "old.csv",
+      "good"
+     ],
+     [
+      "d/old.csv",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_NOT_LOCKED",
+    "rvl": "E_INPUT_NOT_LOCKED",
+    "benchmark": "E_INPUT_NOT_LOCKED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "bead, both good",
+   "input": "./old.csv",
+   "locks": [
+    [
+     [
+      "old.csv",
+      "good"
+     ],
+     [
+      "d/old.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_NOT_LOCKED",
+    "rvl": "E_INPUT_NOT_LOCKED",
+    "benchmark": "E_INPUT_NOT_LOCKED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "exact member, input old.csv",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "old.csv",
+      "good"
+     ],
+     [
+      "d/old.csv",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "single basename member",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "plain member, input ./old.csv",
+   "input": "./old.csv",
+   "locks": [
+    [
+     [
+      "old.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "two paths one basename",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ],
+     [
+      "e/old.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_NOT_LOCKED",
+    "rvl": "E_INPUT_NOT_LOCKED",
+    "benchmark": "E_INPUT_NOT_LOCKED",
+    "verify-run": "E_INPUT_NOT_LOCKED",
+    "verify-ground": "E_INPUT_NOT_LOCKED"
+   }
+  },
+  {
+   "name": "same member path in two locks",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ]
+    ],
+    [
+     [
+      "d/old.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_NOT_LOCKED",
+    "rvl": "E_INPUT_NOT_LOCKED",
+    "benchmark": "E_INPUT_NOT_LOCKED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "two locks, different paths",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ]
+    ],
+    [
+     [
+      "e/old.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_NOT_LOCKED",
+    "rvl": "E_INPUT_NOT_LOCKED",
+    "benchmark": "E_INPUT_NOT_LOCKED",
+    "verify-run": "E_INPUT_NOT_LOCKED",
+    "verify-ground": "E_INPUT_NOT_LOCKED"
+   }
+  },
+  {
+   "name": "two locks, basename good vs exact bad",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ]
+    ],
+    [
+     [
+      "old.csv",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_DRIFT",
+    "rvl": "E_INPUT_DRIFT",
+    "benchmark": "E_INPUT_DRIFT",
+    "verify-run": "E_INPUT_DRIFT",
+    "verify-ground": "E_INPUT_DRIFT"
+   }
+  },
+  {
+   "name": "two locks, exact bad then exact good",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "old.csv",
+      "bad"
+     ]
+    ],
+    [
+     [
+      "old.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "backslash member alone",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d\\old.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_NOT_LOCKED",
+    "rvl": "E_INPUT_NOT_LOCKED",
+    "benchmark": "E_INPUT_NOT_LOCKED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "backslash member beside slash member",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "x/old.csv",
+      "good"
+     ],
+     [
+      "y\\old.csv",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "E_INPUT_NOT_LOCKED",
+    "verify-ground": "E_INPUT_NOT_LOCKED"
+   }
+  },
+  {
+   "name": "backslash member equals backslash input",
+   "input": "d\\old.csv",
+   "locks": [
+    [
+     [
+      "d\\old.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "backslash input, slash member",
+   "input": "d\\old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "trailing slash member beside another",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ],
+     [
+      "e/old.csv/",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_NOT_LOCKED",
+    "rvl": "E_INPUT_NOT_LOCKED",
+    "benchmark": "E_INPUT_NOT_LOCKED",
+    "verify-run": "E_INPUT_NOT_LOCKED",
+    "verify-ground": "E_INPUT_NOT_LOCKED"
+   }
+  },
+  {
+   "name": "trailing dot member beside another",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ],
+     [
+      "e/old.csv/.",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_NOT_LOCKED",
+    "rvl": "E_INPUT_NOT_LOCKED",
+    "benchmark": "E_INPUT_NOT_LOCKED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "trailing slash member alone",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "e/old.csv/",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "member with spaces",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      " old.csv ",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_NOT_LOCKED",
+    "rvl": "E_INPUT_NOT_LOCKED",
+    "benchmark": "E_INPUT_NOT_LOCKED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "member ./old.csv beside d/old.csv",
+   "input": "./old.csv",
+   "locks": [
+    [
+     [
+      "./old.csv",
+      "good"
+     ],
+     [
+      "d/old.csv",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "member ./old.csv alone",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "./old.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "member ./old.csv vs exact old.csv",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "./old.csv",
+      "good"
+     ],
+     [
+      "old.csv",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_DRIFT",
+    "rvl": "E_INPUT_DRIFT",
+    "benchmark": "E_INPUT_DRIFT",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "member ./old.csv good, input ./old.csv, old.csv bad",
+   "input": "./old.csv",
+   "locks": [
+    [
+     [
+      "./old.csv",
+      "good"
+     ],
+     [
+      "old.csv",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "duplicate path: good then md5",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ],
+     [
+      "d/old.csv",
+      "md5"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "E_IO",
+    "verify-ground": "E_IO"
+   }
+  },
+  {
+   "name": "duplicate path: md5 then good",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "md5"
+     ],
+     [
+      "d/old.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_IO",
+    "rvl": "E_IO",
+    "benchmark": "E_UNSUPPORTED_HASH_ALGORITHM",
+    "verify-run": "E_IO",
+    "verify-ground": "E_IO"
+   }
+  },
+  {
+   "name": "duplicate path: good then bad",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ],
+     [
+      "d/old.csv",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "duplicate path: bad then good",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "bad"
+     ],
+     [
+      "d/old.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_DRIFT",
+    "rvl": "E_INPUT_DRIFT",
+    "benchmark": "E_INPUT_DRIFT",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "unrelated short digest",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "old.csv",
+      "good"
+     ],
+     [
+      "other.csv",
+      "short"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "E_IO"
+   }
+  },
+  {
+   "name": "dot-dot member beside another",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ],
+     [
+      "e/old.csv/..",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "same lock passed twice",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ]
+    ],
+    [
+     [
+      "d/old.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": true,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "unrelated md5 member",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "old.csv",
+      "good"
+     ],
+     [
+      "other.csv",
+      "md5"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "E_IO"
+   }
+  },
+  {
+   "name": "unrelated md5 member in second lock",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "old.csv",
+      "good"
+     ]
+    ],
+    [
+     [
+      "other.csv",
+      "md5"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "E_IO"
+   }
+  },
+  {
+   "name": "spaced second path beside another",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ],
+     [
+      "e/old.csv ",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "E_INPUT_NOT_LOCKED",
+    "verify-ground": "E_INPUT_NOT_LOCKED"
+   }
+  },
+  {
+   "name": "spaced exact member beside another",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ],
+     [
+      "old.csv ",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "E_INPUT_DRIFT",
+    "verify-ground": "E_INPUT_DRIFT"
+   }
+  },
+  {
+   "name": "drift",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "old.csv",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_DRIFT",
+    "rvl": "E_INPUT_DRIFT",
+    "benchmark": "E_INPUT_DRIFT",
+    "verify-run": "E_INPUT_DRIFT",
+    "verify-ground": "E_INPUT_DRIFT"
+   }
+  },
+  {
+   "name": "not locked",
+   "input": "old.csv",
+   "locks": [
+    [
+     [
+      "other.csv",
+      "good"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_NOT_LOCKED",
+    "rvl": "E_INPUT_NOT_LOCKED",
+    "benchmark": "E_INPUT_NOT_LOCKED",
+    "verify-run": "E_INPUT_NOT_LOCKED",
+    "verify-ground": "E_INPUT_NOT_LOCKED"
+   }
+  },
+  {
+   "name": "input in subfolder, full relative member",
+   "input": "d/old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ],
+     [
+      "e/old.csv",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "VERIFIED",
+    "rvl": "VERIFIED",
+    "benchmark": "VERIFIED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  },
+  {
+   "name": "input ./d/old.csv, member d/old.csv among two",
+   "input": "./d/old.csv",
+   "locks": [
+    [
+     [
+      "d/old.csv",
+      "good"
+     ],
+     [
+      "e/old.csv",
+      "bad"
+     ]
+    ]
+   ],
+   "same_file_twice": false,
+   "observed": {
+    "shape": "E_INPUT_NOT_LOCKED",
+    "rvl": "E_INPUT_NOT_LOCKED",
+    "benchmark": "E_INPUT_NOT_LOCKED",
+    "verify-run": "VERIFIED",
+    "verify-ground": "VERIFIED"
+   }
+  }
+ ]
+}
