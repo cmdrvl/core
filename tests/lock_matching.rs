@@ -313,17 +313,13 @@ fn edge_cases_one_through_thirteen_are_pinned() {
 
 #[test]
 fn changed_accept_and_refuse_classes_have_concrete_examples() {
-    // Newly refused: exact-path disagreement across locks, exact disagreement in one lock,
-    // and file-name disagreement in one lock all become Drift.
+    // Newly refused: exact-path disagreement across locks and exact disagreement in one lock
+    // both become Drift.
     for members in [
         vec![member(0, "loans.csv", MATCH), member(1, "loans.csv", OTHER)],
         vec![
             member(0, "loans.csv", MATCH),
             member(0, "./loans.csv", OTHER),
-        ],
-        vec![
-            member(0, "d/loans.csv", MATCH),
-            member(0, "d/loans.csv", OTHER),
         ],
     ] {
         let selection = select("loans.csv", members).unwrap();
@@ -332,6 +328,21 @@ fn changed_accept_and_refuse_classes_have_concrete_examples() {
             Ok(Verdict::Drift { .. })
         ));
     }
+    // A file-name disagreement in one lock has two normalized parent paths, so R1 refuses it
+    // before hashing instead of selecting either path.
+    assert_eq!(
+        select(
+            "loans.csv",
+            vec![
+                member(0, "d/loans.csv", MATCH),
+                member(0, "e/loans.csv", OTHER),
+            ]
+        ),
+        Err(SelectError::SeveralPaths(vec![
+            member(0, "d/loans.csv", MATCH),
+            member(0, "e/loans.csv", OTHER),
+        ]))
+    );
     // Newly accepted: equivalent leading ./ spellings and one same-digest path in two locks.
     for members in [
         vec![
