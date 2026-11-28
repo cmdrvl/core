@@ -16,6 +16,7 @@
 #![forbid(unsafe_code)]
 
 pub mod contract;
+pub mod exact_decimal;
 pub mod hash;
 pub mod jcs;
 pub mod lock_matching;
